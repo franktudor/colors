@@ -1,0 +1,76 @@
+<script src="jquery.js"></script>
+<script>
+    $(document).ready(function () {
+    
+	function colorMe() {
+        var newColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+        return newColor;
+    }
+	
+    var size = Math.max(window.innerWidth, window.innerHeight) / 200;
+    var xbound = Math.floor(window.innerWidth / size);
+    var ybound = Math.floor(window.innerHeight / size);
+	
+	function table () {
+		var table = '<table style="border-spacing:1px;width:100%;height:100%;">'; 
+		for (i = 0; i < ybound; i++) {
+			table += '<tr>';
+			for (j = 0; j < xbound; j++) {
+				table += '<td style="background-color:' + colorMe() + ';">';
+				table += '<div style="display:inline-block;height:1px;"></div>';
+				table += '</td>';
+			}
+			table += '</tr>';
+		}
+		table += '</table>';
+		return table;
+	}
+
+    $('body').append(table());
+
+    $("td").hover(function () {
+        var whoIsMe = $(this).index();
+
+        $(this).stop()
+            .animate({
+                "opacity": "0"
+            }, "fast");
+
+        $(this).next("td")
+            .stop()
+            .animate({
+                "opacity": "0"
+            }, "fast");
+
+        $(this).prev("td")
+            .stop()
+            .animate({
+                "opacity": "0"
+            }, "fast");
+
+        $(this).parent()
+            .next()
+            .children("td")
+            .eq(whoIsMe)
+            .stop()
+            .animate({
+                "opacity": "0"
+            }, "fast");
+
+        $(this).parent()
+            .prev()
+            .children("td")
+            .eq(whoIsMe)
+            .stop()
+            .animate({
+                "opacity": "0"
+            }, "fast");
+    });
+
+    setTimeout(function () {
+        window.location.reload(1);
+    }, 50000);
+    });
+//each cell needs a mouseover tone from a js audio plugin.
+//http://www.freesound.org/people/Jovica/packs/669/
+</script>
