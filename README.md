@@ -1,4 +1,4 @@
 colors
 ======
 
-jQuery and HTML doodle pad
+a jQuery and HTML doodle pad
